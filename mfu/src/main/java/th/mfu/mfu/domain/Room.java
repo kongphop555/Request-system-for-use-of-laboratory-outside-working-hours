@@ -6,7 +6,6 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -16,13 +15,48 @@ public class Room {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long Room_id;
 
-    @OneToMany
+    private int capacity;
+
+    @ManyToOne
     @JoinColumn(name = "Department_id", referencedColumnName = "Department_id")
     private Department department;
 
-    @OneToMany
+    @ManyToOne
     @JoinColumn(name = "Build_id", referencedColumnName = "Build_id")
     private Build build;
+
+    public Long getRoom_id() {
+        return Room_id;
+    }
+
+    public void setRoom_id(Long room_id) {
+        Room_id = room_id;
+    }
+
+    public int getCapacity() {
+        return capacity;
+    }
+
+    public void setCapacity(int capacity) {
+        this.capacity = capacity;
+    }
+
+    public Department getDepartment() {
+        return department;
+    }
+
+    public void setDepartment(Department department) {
+        this.department = department;
+    }
+
+    public Build getBuild() {
+        return build;
+    }
+
+    public void setBuild(Build build) {
+        this.build = build;
+    }
+
 
     
 }

@@ -2,6 +2,8 @@ package th.mfu.mfu.domain;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
@@ -19,13 +21,39 @@ public class Users {
     @Column(name = "user_name", nullable = false)
     private String User_name;
 
-    private String User_type;
     private String User_mail;
     private String User_phone;
 
     @ManyToOne
     @JoinColumn(name = "Division_id", referencedColumnName = "Division_id")
     private Division division;
+
+    //บอกว่า ตัวแปรนี้มีค่าเป็น enum (enum คือ ข้อมูลพิเศษที่ใช้สำหรับกำหนดกลุ่มของตัวแปร) เช่นตอนใช้จริง 
+    // Order order = new Order(Status.ACTIVE);  // ตั้งค่า status เป็น ACTIVE
+    // System.out.println(order.getStatus());    // OUTPUT: ACTIVE
+    @Enumerated(EnumType.STRING)
+    @Column(name = "usertype", nullable = false)
+    private User_type usertype;
+
+    public enum User_type{
+        STUDENT, STAFF, TEACHER, HEAD_DEPARTMENT, DIRECTOR
+    }
+
+    public Division getDivision() {
+        return division;
+    }
+
+    public void setDivision(Division division) {
+        this.division = division;
+    }
+
+    public User_type getUsertype() {
+        return usertype;
+    }
+
+    public void setUsertype(User_type usertype) {
+        this.usertype = usertype;
+    }
 
     public Long getUser_id() {
         return User_id;
@@ -41,14 +69,6 @@ public class Users {
 
     public void setUser_name(String user_name) {
         User_name = user_name;
-    }
-
-    public String getUser_type() {
-        return User_type;
-    }
-
-    public void setUser_type(String user_type) {
-        User_type = user_type;
     }
 
     public String getUser_mail() {

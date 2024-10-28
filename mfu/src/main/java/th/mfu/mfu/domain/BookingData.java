@@ -4,9 +4,13 @@ import java.time.LocalTime;
 import java.util.Date;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
@@ -16,61 +20,93 @@ import jakarta.persistence.TemporalType;
 public class BookingData {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long Ref_id;
+    private Long refid;
 
-    @Temporal(TemporalType.DATE)
-    private Date dateReq;
-    @Temporal(TemporalType.DATE)
-    private Date datestart;
-    @Temporal(TemporalType.DATE)
-    private Date dateend;
-
-    private LocalTime timestart;
-    private LocalTime timeend;
+    private String datereq;
+    private String datestart;
+    private String dateend;
+    private String timestart;
+    private String timeend;
     private int Approve_Teacher_id;
     private int Approve_department_id;
     private int Approve_Director_id;
-    private Date ApproveDate_Teacher;
-    private Date ApproveDate_department;
-    private Date ApproveDate_Director;
-    private String Reason;
-
-
+    private String ApproveDate_Teacher;
+    private String ApproveDate_department;
+    private String ApproveDate_Director;
     
-    public Long getRef_id() {
-        return Ref_id;
+    @Enumerated(EnumType.STRING)
+    private Status Bookingstatus;
+    
+    private String Reason; 
+    
+    private enum Status{
+        APPROVED,
+        DENIED,
+        IN_PROCESS
     }
-    public void setRef_id(Long ref_id) {
-        Ref_id = ref_id;
+
+    @ManyToOne
+    @JoinColumn(name = "User_id",referencedColumnName = "User_id")
+    private Users users;
+
+    @ManyToOne
+    @JoinColumn(name = "Room_id",referencedColumnName = "Room_id")
+    private Room room;
+   
+    
+
+    public Status getBookingstatus() {
+        return Bookingstatus;
     }
-    public Date getDateReq() {
-        return dateReq;
+    public void setBookingstatus(Status statuss) {
+        this.Bookingstatus = statuss;
     }
-    public void setDateReq(Date dateReq) {
-        this.dateReq = dateReq;
+    public Users getUsers() {
+        return users;
     }
-    public Date getDatestart() {
+    public void setUsers(Users users) {
+        this.users = users;
+    }
+    public Room getRoom() {
+        return room;
+    }
+    public void setRoom(Room room) {
+        this.room = room;
+    }
+    public Long getRefid() {
+        return refid;
+    }
+    public void setRefid(Long ref_id) {
+        refid = ref_id;
+    }
+    public String getDatereq() {
+        return datereq;
+    }
+    public void setDatereq(String dateReq) {
+        this.datereq = dateReq;
+    }
+    public String getDatestart() {
         return datestart;
     }
-    public void setDatestart(Date datestart) {
+    public void setDatestart(String datestart) {
         this.datestart = datestart;
     }
-    public Date getDateend() {
+    public String getDateend() {
         return dateend;
     }
-    public void setDateend(Date dateend) {
+    public void setDateend(String dateend) {
         this.dateend = dateend;
     }
-    public LocalTime getTimestart() {
+    public String getTimestart() {
         return timestart;
     }
-    public void setTimestart(LocalTime timestart) {
+    public void setTimestart(String timestart) {
         this.timestart = timestart;
     }
-    public LocalTime getTimeend() {
+    public String getTimeend() {
         return timeend;
     }
-    public void setTimeend(LocalTime timeend) {
+    public void setTimeend(String timeend) {
         this.timeend = timeend;
     }
     public int getApprove_Teacher_id() {
@@ -91,22 +127,22 @@ public class BookingData {
     public void setApprove_Director_id(int approve_Director_id) {
         Approve_Director_id = approve_Director_id;
     }
-    public Date getApproveDate_Teacher() {
+    public String getApproveDate_Teacher() {
         return ApproveDate_Teacher;
     }
-    public void setApproveDate_Teacher(Date approveDate_Teacher) {
+    public void setApproveDate_Teacher(String approveDate_Teacher) {
         ApproveDate_Teacher = approveDate_Teacher;
     }
-    public Date getApproveDate_department() {
+    public String getApproveDate_department() {
         return ApproveDate_department;
     }
-    public void setApproveDate_department(Date approveDate_department) {
+    public void setApproveDate_department(String approveDate_department) {
         ApproveDate_department = approveDate_department;
     }
-    public Date getApproveDate_Director() {
+    public String getApproveDate_Director() {
         return ApproveDate_Director;
     }
-    public void setApproveDate_Director(Date approveDate_Director) {
+    public void setApproveDate_Director(String approveDate_Director) {
         ApproveDate_Director = approveDate_Director;
     }
     public String getReason() {
