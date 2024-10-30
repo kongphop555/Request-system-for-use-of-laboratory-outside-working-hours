@@ -1,30 +1,21 @@
 package th.mfu.mfu.domain;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
-import jakarta.persistence.GenerationType;
+import jakarta.persistence.*;
 
 @Entity
 @Table
 public class Users {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long User_id;
 
-    @Column(name = "user_name", nullable = false)
-    private String User_name;
+    @Column(name = "username", nullable = false)
+    private String username;
 
+    private String User_password;
     private String User_mail;
     private String User_phone;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
     @JoinColumn(name = "Division_id", referencedColumnName = "Division_id")
     private Division division;
 
@@ -63,12 +54,12 @@ public class Users {
         User_id = user_id;
     }
 
-    public String getUser_name() {
-        return User_name;
+    public String getUsername() {
+        return username;
     }
 
-    public void setUser_name(String user_name) {
-        User_name = user_name;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getUser_mail() {
@@ -85,6 +76,14 @@ public class Users {
 
     public void setUser_phone(String user_phone) {
         User_phone = user_phone;
+    }
+
+    public String getUser_password() {
+        return User_password;
+    }
+
+    public void setUser_password(String user_password) {
+        User_password = user_password;
     }
 
 }

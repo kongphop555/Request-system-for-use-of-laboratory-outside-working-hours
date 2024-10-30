@@ -20,11 +20,11 @@ public class BookingDataController {
     @GetMapping("/booking")
     public ResponseEntity<List<BookingData>> getAllBookings() {
         List<BookingData> bookings = bookingDataRepository.findAll();
-        return new ResponseEntity<>(bookings, HttpStatus.OK);
+        return new ResponseEntity<List<BookingData>>(bookings, HttpStatus.OK);
     }
 
     // Get a booking by reference ID
-    @GetMapping("/{refid}")
+    @GetMapping("/booking/{refid}")
     public ResponseEntity<BookingData> getBookingByRefId(@PathVariable Long refid) {
         Optional<BookingData> bookingData = bookingDataRepository.findById(refid);
         if (bookingData.isPresent()) {
@@ -37,12 +37,12 @@ public class BookingDataController {
     // Create a new booking
     @PostMapping("/booking")
     public ResponseEntity<BookingData> createBooking(@RequestBody BookingData bookingData) {
-        //if (bookingData.getDatereq() == null) {
-         //   return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-       // }
+        if (bookingData.getDatereq() == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
 
         BookingData savedBooking = bookingDataRepository.save(bookingData);
-        return new ResponseEntity<>(savedBooking, HttpStatus.CREATED);
+        return new ResponseEntity<BookingData>(savedBooking, HttpStatus.CREATED);
     }
 
     // Update an existing booking

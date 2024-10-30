@@ -39,7 +39,7 @@ public class UsersController {
 
     @PostMapping("/addUser")
     public ResponseEntity<?> addUsers(@RequestBody Users users) {
-        if (users.getUser_name() == null || users.getUser_name().isEmpty()) {
+        if (users.getUsername() == null || users.getUsername().isEmpty()) {
             return new ResponseEntity<>("user_name cannot be null", HttpStatus.BAD_REQUEST);
         }
         Users usersObj = userrepo.save(users);
@@ -52,7 +52,7 @@ public class UsersController {
 
         if (Olduserdata.isPresent()) {
             Users updateusersdata = Olduserdata.get();
-            updateusersdata.setUser_name(newUsersData.getUser_name());
+            updateusersdata.setUsername(newUsersData.getUsername());
             updateusersdata.setUser_mail(newUsersData.getUser_mail());
             updateusersdata.setUser_phone(newUsersData.getUser_phone());
 

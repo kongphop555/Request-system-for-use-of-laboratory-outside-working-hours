@@ -11,6 +11,7 @@ import jakarta.persistence.ManyToOne;
 public class Other {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    
     @ManyToOne
     @JoinColumn(name = "User_id",referencedColumnName = "User_id")
     private Users users;
